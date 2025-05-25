@@ -22,6 +22,14 @@ const ShowWishListBooks = ({ book }) => {
   };
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-6 rounded-xl border p-4 shadow-md bg-white max-w-4xl mx-auto">
+      {/* Book Image */}
+      <div className="w-full md:w-32 shrink-0 flex justify-center items-center">
+        <img
+          src={image}
+          alt={bookName}
+          className="rounded-md shadow-md p-4 w-32 md:w-full h-auto object-contain"
+        />
+      </div>
       {/* Book Info */}
       <div className="flex flex-col justify-between w-full text-center md:text-left">
         <div>

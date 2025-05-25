@@ -8,6 +8,9 @@ import ErrorPage from "./ErrorPage";
 import Home from "./Home/Home";
 import BookDetail from "./components/BookDetail/BookDetail";
 import ListedBooks from "./components/ListedBooks/ListedBooks";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import PagesToRead from "./components/PagesToRead/PagesToRead";
 
 // load all books data.
 const booksLoader = async () => {
@@ -44,6 +47,11 @@ const router = createBrowserRouter([
         element: <ListedBooks></ListedBooks>,
         loader: booksLoader,
       },
+      {
+        path: "/pages-to-read",
+        element: <PagesToRead></PagesToRead>,
+        loader: booksLoader,
+      },
     ],
   },
 ]);
@@ -51,5 +59,18 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Bounce}
+    />
   </StrictMode>
 );
