@@ -40,7 +40,7 @@ const BookDetail = () => {
 
       {/* Details Section */}
       <div className="flex flex-col text-center px-4 lg:text-left w-full max-w-3xl">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold playfairfont ">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold playfair-display">
           {bookName}
         </h1>
         <p className="text-lg md:text-xl mt-2  font-medium">By: {author}</p>

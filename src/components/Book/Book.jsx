@@ -20,7 +20,7 @@ const Book = ({ book }) => {
               </button>
             ))}
           </div>
-          <h2 className="text-2xl playfair font-bold">{bookName}</h2>
+          <h2 className="text-2xl playfair-display font-bold">{bookName}</h2>
           <p className="text-base work-sans  font-medium">By : {author}</p>
           <div className="flex w-full flex-col border-opacity-50">
             <div className="divider"></div>
