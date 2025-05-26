@@ -9,6 +9,8 @@ const ListedBooks = () => {
   const [readBooks, setReadBooks] = useState([]);
   const [wishList, setWishList] = useState([]);
 
+  const [sort, setSort] = useState("");
+
   const allBooks = useLoaderData();
   //   console.log(allBooks);
 
@@ -33,8 +35,48 @@ const ListedBooks = () => {
     setReadBooks(readListBooks);
     setWishList(wishList);
   }, []);
+
+  const handleSort = (sortType) => {
+    setSort(sortType);
+
+    if (sortType === "No of pages") {
+      const sortedReadList = [
+        ...readBooks.sort((a, b) => a.totalPages - b.totalPages),
+      ];
+      setReadBooks(sortedReadList);
+    }
+    if ((sortType = "Ratings")) {
+      const sorteReadList = [...readBooks.sort((a, b) => b.rating - a.rating)];
+      setReadBooks(sorteReadList);
+    }
+  };
   return (
     <div>
+      {/* Sort Button - Centered, Responsive, Clean & Versatile for Dark/Light */}
+      <div className="flex justify-center mb-6">
+        <div className="dropdown dropdown-bottom">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn bg-green-600 text-white  text-lg sm:text-xl md:text-2xl font-semibold py-6 px-6 rounded-lg shadow-md "
+          >
+            {sort ? `Sort by: ${sort}` : "Sort by"}
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu  border rounded-lg z-[1] w-52 p-2 shadow-lg dark:bg-neutral-900 dark:text-white"
+          >
+            <li onClick={() => handleSort("Ratings")}>
+              <a className=" rounded-md p-2 transition">Ratings</a>
+            </li>
+            <li onClick={() => handleSort("No of pages")}>
+              <a className=" rounded-md p-2 transition">No of pages</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Keep Tabs exactly as they were */}
       <Tabs>
         <TabList>
           <Tab>Read list Books</Tab>
@@ -43,15 +85,12 @@ const ListedBooks = () => {
 
         <TabPanel>
           {readBooks.map((readBook, index) => (
-            <ShowReadListBooks
-              key={index}
-              readBook={readBook}
-            ></ShowReadListBooks>
+            <ShowReadListBooks key={index} readBook={readBook} />
           ))}
         </TabPanel>
         <TabPanel>
           {wishList.map((book, idx) => (
-            <ShowWishListBooks key={idx} book={book}></ShowWishListBooks>
+            <ShowWishListBooks key={idx} book={book} />
           ))}
         </TabPanel>
       </Tabs>
