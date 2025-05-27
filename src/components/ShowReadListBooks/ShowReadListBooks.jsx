@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 
-const ShowReadListBooks = ({ readBook }) => {
+const ShowReadListBooks = ({ readBook, handleRemoveReadItem }) => {
   const navigate = useNavigate();
 
   const {
@@ -20,6 +21,7 @@ const ShowReadListBooks = ({ readBook }) => {
   const hanldeViewDetail = () => {
     navigate(`/book/${bookId}`);
   };
+
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-6 rounded-xl border p-4 shadow-md bg-white max-w-4xl mx-auto">
       {/* Book Image */}
@@ -34,10 +36,21 @@ const ShowReadListBooks = ({ readBook }) => {
       {/* Book Info */}
       <div className="flex flex-col justify-between w-full text-center md:text-left">
         <div>
-          <h2 className="text-lg md:text-xl font-semibold text-gray-800">
-            {bookName}
-          </h2>
-          <p className="text-sm md:text-base text-gray-600">By: {author}</p>
+          {/* Title + Delete */}
+          <div className="flex justify-between items-start">
+            <div>
+              <h2 className="text-lg md:text-xl font-semibold text-gray-800">
+                {bookName}
+              </h2>
+              <p className="text-sm md:text-base text-gray-600">By: {author}</p>
+            </div>
+            <button
+              onClick={() => handleRemoveReadItem(bookId)}
+              className="text-red-600 text-3xl"
+            >
+              <MdDelete />
+            </button>
+          </div>
 
           <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-2">
             {tags.map((tag, idx) => (
@@ -67,16 +80,16 @@ const ShowReadListBooks = ({ readBook }) => {
           <button
             onClick={hanldeViewDetail}
             className="
-    bg-gradient-to-r from-green-500 to-green-600
-    text-white
-    border border-green-600
-    px-6 py-2 rounded-xl
-    shadow-md
-    hover:from-green-600 hover:to-green-700
-    hover:scale-105
-    transition-all duration-300 ease-in-out
-    focus:outline-none focus:ring-4 focus:ring-green-300/50
-  "
+          bg-gradient-to-r from-green-500 to-green-600
+          text-white
+          border border-green-600
+          px-6 py-2 rounded-xl
+          shadow-md
+          hover:from-green-600 hover:to-green-700
+          hover:scale-105
+          transition-all duration-300 ease-in-out
+          focus:outline-none focus:ring-4 focus:ring-green-300/50
+        "
           >
             View Details
           </button>

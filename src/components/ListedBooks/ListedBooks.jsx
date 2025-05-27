@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { getStoredList, getStoredWishList } from "../Utility/addToDB";
+import {
+  getStoredList,
+  getStoredWishList,
+  removeFromReadList,
+} from "../Utility/addToDB";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import ShowReadListBooks from "../ShowReadListBooks/ShowReadListBooks";
@@ -36,6 +40,7 @@ const ListedBooks = () => {
     setWishList(wishList);
   }, []);
 
+  // Sort functionalities
   const handleSort = (sortType) => {
     setSort(sortType);
 
@@ -49,6 +54,16 @@ const ListedBooks = () => {
       const sorteReadList = [...readBooks.sort((a, b) => b.rating - a.rating)];
       setReadBooks(sorteReadList);
     }
+  };
+
+  // remove read list from UI
+  const handleRemoveReadItem = (id) => {
+    // remove from UI
+    const remainingReadBooks = readBooks.filter((book) => book.bookId !== id);
+    setReadBooks(remainingReadBooks);
+
+    // remove from LocalStorage
+    removeFromReadList(id);
   };
   return (
     <div>
@@ -76,7 +91,7 @@ const ListedBooks = () => {
         </div>
       </div>
 
-      {/* Keep Tabs exactly as they were */}
+      {/* TABS */}
       <Tabs>
         <TabList>
           <Tab>Read list Books</Tab>
@@ -85,7 +100,11 @@ const ListedBooks = () => {
 
         <TabPanel>
           {readBooks.map((readBook, index) => (
-            <ShowReadListBooks key={index} readBook={readBook} />
+            <ShowReadListBooks
+              key={index}
+              readBook={readBook}
+              handleRemoveReadItem={handleRemoveReadItem}
+            />
           ))}
         </TabPanel>
         <TabPanel>

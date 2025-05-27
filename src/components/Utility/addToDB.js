@@ -43,10 +43,19 @@ const addToStoredReadList = (id) => {
     toast("Added in read list");
   }
 };
+const removeFromReadList = (id) => {
+  // console.log(typeof id);
+  const idStr = id.toString();
+  const books = getStoredList(); // Array of IDs [this IDs are string ]
+  // console.log(books);
+  const remaining = books.filter((bookId) => bookId !== idStr);
+  localStorage.setItem("read-list", JSON.stringify(remaining));
+};
 
 export {
   addToStoredReadList,
   addToStoredWishList,
   getStoredList,
   getStoredWishList,
+  removeFromReadList,
 };
