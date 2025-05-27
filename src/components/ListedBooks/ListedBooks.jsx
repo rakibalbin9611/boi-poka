@@ -4,6 +4,7 @@ import {
   getStoredList,
   getStoredWishList,
   removeFromReadList,
+  removeFromWishList,
 } from "../Utility/addToDB";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -65,6 +66,14 @@ const ListedBooks = () => {
     // remove from LocalStorage
     removeFromReadList(id);
   };
+
+  const handleRemoveWishList = (id) => {
+    const remainnigWishListBooks = wishList.filter(
+      (book) => book.bookId !== id
+    );
+    setWishList(remainnigWishListBooks);
+    removeFromWishList(id);
+  };
   return (
     <div>
       {/* Sort Button - Centered, Responsive, Clean & Versatile for Dark/Light */}
@@ -109,7 +118,11 @@ const ListedBooks = () => {
         </TabPanel>
         <TabPanel>
           {wishList.map((book, idx) => (
-            <ShowWishListBooks key={idx} book={book} />
+            <ShowWishListBooks
+              key={idx}
+              book={book}
+              handleRemoveWishList={handleRemoveWishList}
+            />
           ))}
         </TabPanel>
       </Tabs>

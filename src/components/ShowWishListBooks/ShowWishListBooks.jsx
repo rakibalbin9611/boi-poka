@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 
-const ShowWishListBooks = ({ book }) => {
+const ShowWishListBooks = ({ book, handleRemoveWishList }) => {
   const navigate = useNavigate();
 
   const {
@@ -30,13 +31,25 @@ const ShowWishListBooks = ({ book }) => {
           className="rounded-md shadow-md p-4 w-32 md:w-full h-auto object-contain"
         />
       </div>
+
       {/* Book Info */}
       <div className="flex flex-col justify-between w-full text-center md:text-left">
         <div>
-          <h2 className="text-lg md:text-xl font-semibold text-gray-800">
-            {bookName}
-          </h2>
-          <p className="text-sm md:text-base text-gray-600">By: {author}</p>
+          {/* Book Name + Delete Button */}
+          <div className="flex justify-between items-start">
+            <div>
+              <h2 className="text-lg md:text-xl font-semibold text-gray-800">
+                {bookName}
+              </h2>
+              <p className="text-sm md:text-base text-gray-600">By: {author}</p>
+            </div>
+            <button
+              onClick={() => handleRemoveWishList(bookId)}
+              className="text-red-600 text-3xl"
+            >
+              <MdDelete />
+            </button>
+          </div>
 
           <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-2">
             {tags.map((tag, idx) => (
@@ -55,6 +68,7 @@ const ShowWishListBooks = ({ book }) => {
             <span>📄 Pages: {totalPages}</span>
           </div>
         </div>
+
         <div className="flex flex-col sm:flex-row justify-center md:justify-between items-center gap-4 mt-4">
           <span className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-full">
             Category: {category}
@@ -65,16 +79,16 @@ const ShowWishListBooks = ({ book }) => {
           <button
             onClick={handleShowDetail}
             className="
-                    bg-gradient-to-r from-green-500 to-green-600
-                    text-white
-                    border border-green-600
-                    px-6 py-2 rounded-xl
-                    shadow-md
-                    hover:from-green-600 hover:to-green-700
-                    hover:scale-105
-                    transition-all duration-300 ease-in-out
-                    focus:outline-none focus:ring-4 focus:ring-green-300/50
-                "
+          bg-gradient-to-r from-green-500 to-green-600
+          text-white
+          border border-green-600
+          px-6 py-2 rounded-xl
+          shadow-md
+          hover:from-green-600 hover:to-green-700
+          hover:scale-105
+          transition-all duration-300 ease-in-out
+          focus:outline-none focus:ring-4 focus:ring-green-300/50
+        "
           >
             View Details
           </button>

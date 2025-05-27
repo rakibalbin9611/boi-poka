@@ -51,6 +51,14 @@ const removeFromReadList = (id) => {
   const remaining = books.filter((bookId) => bookId !== idStr);
   localStorage.setItem("read-list", JSON.stringify(remaining));
 };
+const removeFromWishList = (id) => {
+  // console.log(typeof id);
+  const idStr = id.toString();
+  const books = getStoredWishList(); // Array of IDs [this IDs are string ]
+  // console.log(books);
+  const remaining = books.filter((bookId) => bookId !== idStr);
+  localStorage.setItem("wish-list", JSON.stringify(remaining));
+};
 
 export {
   addToStoredReadList,
@@ -58,4 +66,5 @@ export {
   getStoredList,
   getStoredWishList,
   removeFromReadList,
+  removeFromWishList,
 };
